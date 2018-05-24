@@ -9,10 +9,12 @@ By Bibosso
 
 from twitter_follow_bot import search_tweets
 
-# result_type option
-result = search_tweets('RT Follow', count=1, lang='fr')
+
+tag = 'macron'
+
+result = search_tweets(tag, count=1, lang='fr', result_type='mixed')
 #print(result)
-print('\n')
+
 
 if 'statuses' in result:
 
@@ -21,7 +23,7 @@ if 'statuses' in result:
     print('\n')
     print('-- INFO --')
     print('Completed request in : %s' % (dataInfo_research['completed_in']))
-    print('Number Result : %s' % (dataInfo_research['count']))
+    print('Number max Result required : %s' % (dataInfo_research['count']))
     print('Query : %s' % (dataInfo_research['query']))
     print('\n')
 
@@ -49,6 +51,21 @@ if 'statuses' in result:
             #print(type(h), h)
             print('Hastags detected : #' + h['text'])
 
+        print('\n')
+
+        # url source
+        #print('==> Source : %s' %(elt['source']))
+
+        # url search
+        if len(ent['urls']) == 0:
+            print('==> any link detected')
+        else:
+            countUrl = 1
+            print('==> %s URL detected' %(str(len(ent['urls']))))
+            for u in ent['urls']:
+                print('==> URL %s : %s'%(str(countUrl), u['expanded_url']))
+                countUrl += 1
+
 
         print('\n')
 
@@ -63,10 +80,24 @@ if 'statuses' in result:
         # key 'screen_name'
         # key 'description'
         # key 'verified' type bool()
-        print('==> Posted by : %s' %(elt['user']['screen_name']))
+        print('==> Posted by scree-name : %s' %(elt['user']['screen_name']))
+        print('==> Posted by name : %s' %(elt['user']['name']))
         print('==> Description User : %s' %(elt['user']['description']))
         print('\n')
+
+        print('==> message posted at : %s' %(elt['created_at']))
+
+        # if tweet or retweet
+        if elt['text'][:2] == 'RT':
+            print('==> detected message is a Retweet')
+        else:
+            print('==> detected message is a Tweet')
+
+        print('\n')
         print('==> Twitted message : %s' %(elt['text']))
+
+
+print('\n')
 
 
 
