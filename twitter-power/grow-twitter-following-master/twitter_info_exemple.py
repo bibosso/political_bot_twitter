@@ -1,0 +1,5 @@
+OAUTH_TOKEN = "token here"
+OAUTH_SECRET = "secret here"
+CONSUMER_KEY = "key here"
+CONSUMER_SECRET = "secret consumer here"
+TWITTER_HANDLE = "here"
